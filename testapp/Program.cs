@@ -9,6 +9,8 @@ using mainlineDHT;
 using mainlineDHT.BEncode;
 using mainlineDHT.BEncode.Formatters;
 
+using mainlineCapture;
+
 namespace testapp
 {
     using System.IO;
@@ -18,6 +20,18 @@ namespace testapp
     class Program
     {
         static void Main(string[] args)
+        {
+            // ExerciseParser();
+            ExerciseCapture();
+            Debugger.Break();
+        }
+
+        static void ExerciseCapture()
+        {
+            mainlineCapture.CaptureHandler.EnumerateDevices();
+        }
+
+        static void ExerciseParser()
         {
             var outerDic = new BEncodeDictionary();
             var innderDic = new BEncodeDictionary();
@@ -30,15 +44,16 @@ namespace testapp
             outerDic.Add("v", new BEncodeByteString("Utw."));
             outerDic.Add("y", new BEncodeByteString("q"));
 
-                       
+
             var formatted = outerDic.ToBytes();
 
             var str = Encoding.ASCII.GetString(formatted);
-            
+
             var json = outerDic.ToJson();
 
+
             var filePath = @"testfiles\testfile2.torrent";
-            
+
             var str2 = File.ReadAllBytes(filePath);
 
             byte[] remStr;
@@ -53,16 +68,14 @@ namespace testapp
             sw.Restart();
 
             parsed.Remove(new BEncodeByteString("pieces"));
-            
+
             var parsedJson = parsed.ToJson();
 
             sw.Stop();
             Console.WriteLine("JSON parse took: " + sw.ElapsedMilliseconds + "ms");
-            
+
 
             File.WriteAllBytes(filePath + "_", parsed.ToBytes());
-
-            Debugger.Break();
         }
     }
 }
