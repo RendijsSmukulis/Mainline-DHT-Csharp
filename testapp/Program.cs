@@ -37,17 +37,28 @@ namespace testapp
             
             var json = outerDic.ToJson();
 
-            var filePath = @"C:\Users\Luuseens\Downloads\The.Lego.Movie.2014.1080p.BluRay.x264-BLOW-[PublicHD].torrent";
+            var filePath = @"testfiles\testfile2.torrent";
             
             var str2 = File.ReadAllBytes(filePath);
 
             byte[] remStr;
             //var parsed = ToEntity.ToEntity("d2:id4:abbae", out remStr);
+
+            var sw = new Stopwatch();
+            sw.Start();
+
             var parsed = FromBytes.ToEntity(str2, out remStr) as BEncodeDictionary;
+            sw.Stop();
+            Console.WriteLine("Bencode parse took: " + sw.ElapsedMilliseconds + "ms");
+            sw.Restart();
+
             parsed.Remove(new BEncodeByteString("pieces"));
             
             var parsedJson = parsed.ToJson();
 
+            sw.Stop();
+            Console.WriteLine("JSON parse took: " + sw.ElapsedMilliseconds + "ms");
+            
 
             File.WriteAllBytes(filePath + "_", parsed.ToBytes());
 

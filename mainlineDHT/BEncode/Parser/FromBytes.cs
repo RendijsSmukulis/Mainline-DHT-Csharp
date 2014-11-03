@@ -27,11 +27,13 @@ namespace mainlineDHT.BEncode.Parser
             var numberStr = string.Empty;
 
             // Todo: optimize here.
-            while (byteArr.Length > 0 && byteArr[0] >= '0' && byteArr[0] <= '9')
+            int pointer = 0;
+            while (byteArr.Length > pointer && byteArr[pointer] >= '0' && byteArr[pointer] <= '9')
             {
-                numberStr += (char)byteArr[0];
-                byteArr = byteArr.Substring(1);
+                numberStr += (char)byteArr[pointer++];                
             }
+
+            byteArr = byteArr.Substring(pointer);
 
             // We should now have removed all the numbers, and have a ":" + remaining string left 
             // (e.g. ":id")
@@ -74,34 +76,34 @@ namespace mainlineDHT.BEncode.Parser
             }
 
             // Remove the "i"
-            byteArr = byteArr.Substring(1);
+            var pointer = 1;
 
             // Extract the int into a string (optimize: maybe stringbuilder?)
             string val = string.Empty;
-            if (byteArr[0] == '-')
+            if (byteArr[pointer] == '-')
             {
                 val += "-";
-                byteArr = byteArr.Substring(1);
+                pointer++;
             }
 
-            while (byteArr[0] >= '0' && byteArr[0] <= '9')
+            
+            while (byteArr[pointer] >= '0' && byteArr[pointer] <= '9')
             {
-                val += (char)byteArr[0];
-                byteArr = byteArr.Substring(1);
+                val += (char)byteArr[pointer++];                
             }
 
             // After all the digits are extracted, we expect "e"
             long parsedVal;
-            if (byteArr.Length == 0 || byteArr[0] != 'e' || !long.TryParse(val, out parsedVal))
+            if (byteArr.Length <= pointer - 1 || byteArr[pointer] != 'e' || !long.TryParse(val, out parsedVal))
             {
                 var cause = "integer parse failed";
 
-                if (byteArr.Length == 0)
+                if (byteArr.Length <= pointer - 1)
                 {
                     cause = "byteArray length was not expected to be 0";
                 }
 
-                if (byteArr[0] != 'e')
+                if (byteArr[pointer] != 'e')
                 {
                     cause = "byteArray was expected to start with 'e'";
                 }
@@ -110,7 +112,7 @@ namespace mainlineDHT.BEncode.Parser
             }
 
             // Remove the "e"
-            remainingByteArr = byteArr.Substring(1);
+            remainingByteArr = byteArr.Substring(pointer);
 
             return new BEncodeInt(parsedVal);
         }

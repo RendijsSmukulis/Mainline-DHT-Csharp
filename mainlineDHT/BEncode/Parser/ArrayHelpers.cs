@@ -6,6 +6,7 @@
 
 namespace mainlineDHT.BEncode.Parser
 {
+    using System;
     using System.Linq;
 
     /// <summary>
@@ -22,7 +23,9 @@ namespace mainlineDHT.BEncode.Parser
         /// <returns>A new array that's a substring of the old array</returns>
         public static T[] Substring<T>(this T[] arr, int start)
         {
-            return arr.Skip(start).ToArray();
+            var newArr = new T[arr.Length - start];
+            Array.Copy(arr, start, newArr, 0, arr.Length - start);
+            return newArr;
         }
 
         /// <summary>
