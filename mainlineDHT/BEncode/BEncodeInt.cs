@@ -17,7 +17,7 @@ namespace mainlineDHT.BEncode
         /// Initializes a new instance of the <see cref="BEncodeInt"/> class.
         /// </summary>
         /// <param name="value">The value.</param>
-        public BEncodeInt(int value)
+        public BEncodeInt(long value)
         {
             this.Value = value;
         }
@@ -25,7 +25,7 @@ namespace mainlineDHT.BEncode
         /// <summary>
         /// Gets or sets the integer value.
         /// </summary>
-        public int Value { get; set; }
+        public long Value { get; set; }
 
         /// <summary>
         /// Serializes the entity to bytes

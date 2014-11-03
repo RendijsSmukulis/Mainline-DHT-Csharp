@@ -42,6 +42,7 @@
     <Compile Include="BEncode\BEncodeDictionary.cs" />
     <Compile Include="BEncode\BEncodeInt.cs" />
     <Compile Include="BEncode\BEncodeList.cs" />
+    <Compile Include="BEncode\Formatters\Json.cs" />
     <Compile Include="BEncode\IBEncodeEntity.cs" />
     <Compile Include="BEncode\BEncodeByteString.cs" />
     <Compile Include="BEncode\Parser\ArrayHelpers.cs" />

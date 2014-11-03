@@ -91,10 +91,22 @@ namespace mainlineDHT.BEncode.Parser
             }
 
             // After all the digits are extracted, we expect "e"
-            int parsedVal;
-            if (byteArr.Length == 0 || byteArr[0] != 'e' || !int.TryParse(val, out parsedVal))
+            long parsedVal;
+            if (byteArr.Length == 0 || byteArr[0] != 'e' || !long.TryParse(val, out parsedVal))
             {
-                throw new Exception("parse errorr");
+                var cause = "integer parse failed";
+
+                if (byteArr.Length == 0)
+                {
+                    cause = "byteArray length was not expected to be 0";
+                }
+
+                if (byteArr[0] != 'e')
+                {
+                    cause = "byteArray was expected to start with 'e'";
+                }
+                
+                throw new Exception("parse errorr, cause: " + cause);
             }
 
             // Remove the "e"

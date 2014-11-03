@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using mainlineDHT;
 using mainlineDHT.BEncode;
+using mainlineDHT.BEncode.Formatters;
 
 namespace testapp
 {
@@ -29,17 +30,26 @@ namespace testapp
             outerDic.Add("v", new BEncodeByteString("Utw."));
             outerDic.Add("y", new BEncodeByteString("q"));
 
+                       
             var formatted = outerDic.ToBytes();
+
             var str = Encoding.ASCII.GetString(formatted);
-            var filePath = @"C:\Users\b-rendij\Downloads\Family.Guy.S12E13.720p.HDTV.x264-REMARKABLE.torrent";
+            
+            var json = outerDic.ToJson();
+
+            var filePath = @"C:\Users\Luuseens\Downloads\The.Lego.Movie.2014.1080p.BluRay.x264-BLOW-[PublicHD].torrent";
             
             var str2 = File.ReadAllBytes(filePath);
 
             byte[] remStr;
             //var parsed = ToEntity.ToEntity("d2:id4:abbae", out remStr);
             var parsed = FromBytes.ToEntity(str2, out remStr) as BEncodeDictionary;
+            parsed.Remove(new BEncodeByteString("pieces"));
+            
+            var parsedJson = parsed.ToJson();
 
-            File.WriteAllBytes(@"C:\Users\b-rendij\Downloads\Family.Guy.S12E13.720p.HDTV.x264-REMARKABLE2.torrent", parsed.ToBytes());
+
+            File.WriteAllBytes(filePath + "_", parsed.ToBytes());
 
             Debugger.Break();
         }
