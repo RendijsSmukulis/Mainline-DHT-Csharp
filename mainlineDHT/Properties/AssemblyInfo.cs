@@ -8,7 +8,6 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("mainlineDHT")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("mainlineDHT")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
