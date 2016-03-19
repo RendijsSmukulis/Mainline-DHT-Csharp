@@ -15,7 +15,7 @@ namespace mainlineDHT.BEncode
     /// <summary>
     /// The BEncodeByteString. Helps with BEncode string manipulation.
     /// </summary>
-    public class BEncodeByteString : IBEncodeEntity, IEqualityComparer, IEquatable<BEncodeByteString>
+    public class BEncodeByteString : IBEncodeEntity, IEquatable<BEncodeByteString>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BEncodeByteString"/> class.
@@ -79,17 +79,14 @@ namespace mainlineDHT.BEncode
             return Encoding.ASCII.GetString(this.Value);
         }
 
-        public bool Equals(object x, object y)
+        bool IEquatable<BEncodeByteString>.Equals(BEncodeByteString other)
         {
-            var xStr = x as BEncodeByteString;
-            var yStr = y as BEncodeByteString;
-
-            return xStr != null && yStr != null && xStr.Value.Equals(yStr.Value);
+            return this.ToString().Equals(other.ToString());
         }
 
-        public int GetHashCode(object obj)
+        public override int GetHashCode()
         {
-            return this.Value.GetHashCode();
+            return this.ToString().GetHashCode();
         }
     }
 }

@@ -25,6 +25,8 @@ namespace mainlineUnitTests
             
             Assert.IsNotNull(dictionary);
             Assert.AreEqual(5, dictionary.Keys.Count);
+            Assert.IsTrue(dictionary.Keys.Contains(new BEncodeByteString("announce")));
+
             Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("announce")));
             Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("announce-list")));
             Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("comment")));
