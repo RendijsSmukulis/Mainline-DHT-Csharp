@@ -112,7 +112,7 @@ namespace mainlineDHT.BEncode.Parser
             }
 
             // Remove the "e"
-            remainingByteArr = byteArr.Substring(pointer);
+            remainingByteArr = byteArr.Substring(pointer + 1);
 
             return new BEncodeInt(parsedVal);
         }

@@ -4,6 +4,9 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Collections;
+
 namespace mainlineDHT.BEncode
 {
     using System.Collections.Generic;
@@ -12,7 +15,7 @@ namespace mainlineDHT.BEncode
     /// <summary>
     /// The BEncodeByteString. Helps with BEncode string manipulation.
     /// </summary>
-    public class BEncodeByteString : IBEncodeEntity
+    public class BEncodeByteString : IBEncodeEntity, IEqualityComparer, IEquatable<BEncodeByteString>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BEncodeByteString"/> class.
@@ -60,6 +63,11 @@ namespace mainlineDHT.BEncode
             return bytes.ToArray();
         }
 
+        public bool Equals(BEncodeByteString other)
+        {
+            return this.Value.Equals(other.Value);
+        }
+
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
@@ -69,6 +77,19 @@ namespace mainlineDHT.BEncode
         public override string ToString()
         {
             return Encoding.ASCII.GetString(this.Value);
+        }
+
+        public bool Equals(object x, object y)
+        {
+            var xStr = x as BEncodeByteString;
+            var yStr = y as BEncodeByteString;
+
+            return xStr != null && yStr != null && xStr.Value.Equals(yStr.Value);
+        }
+
+        public int GetHashCode(object obj)
+        {
+            return this.Value.GetHashCode();
         }
     }
 }
