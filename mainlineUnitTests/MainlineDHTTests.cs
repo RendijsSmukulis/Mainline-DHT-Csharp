@@ -23,16 +23,14 @@ namespace mainlineUnitTests
 
             var dictionary = FromBytes.ToEntity(str2, out remStr) as BEncodeDictionary;
             
-            Assert.IsNotNull(dictionary);
-            Assert.AreEqual(5, dictionary.Keys.Count);
-            Assert.IsTrue(dictionary.Keys.Contains(new BEncodeByteString("announce")));
+            Assert.IsNotNull(dictionary, "Dictionary was null");
+            Assert.AreEqual(5, dictionary.Keys.Count, "Unexpected number of items in dictionary.");
 
-            Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("announce")));
-            Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("announce-list")));
-            Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("comment")));
-            Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("creation date")));
-            Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("info")));
-            
+            Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("announce")), "announce missing from dictionary");
+            Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("announce-list")), "announce-list missing from dictionary");
+            Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("comment")), "comment missing from dictionary");
+            Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("creation date")), "creation date missing from dictionary");
+            Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("info")), "info missing from dictionary");
         }
     }
 }
