@@ -89,6 +89,10 @@ namespace mainlineDHT.BEncode
         {
             return this.values.ContainsKey(key);
         }
+        public bool ContainsKey(string key)
+        {
+            return this.values.ContainsKey(new BEncodeByteString(key));
+        }
 
         public ICollection<BEncodeByteString> Keys
         {
@@ -125,6 +129,19 @@ namespace mainlineDHT.BEncode
             set
             {
                 this.values[key] = value;
+            }
+        }
+
+        public IBEncodeEntity this[string key]
+        {
+            get
+            {
+                return this.values[new BEncodeByteString(key)];
+            }
+
+            set
+            {
+                this.values[new BEncodeByteString(key)] = value;
             }
         }
 
@@ -181,6 +198,17 @@ namespace mainlineDHT.BEncode
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.values.GetEnumerator();
+        }
+
+        public IBEncodeEntity ValueOrNull(string key)
+        {
+            IBEncodeEntity result;
+            if (this.TryGetValue(new BEncodeByteString(key), out result))
+            {
+                return result;
+            }
+
+            return null;
         }
     }
 }

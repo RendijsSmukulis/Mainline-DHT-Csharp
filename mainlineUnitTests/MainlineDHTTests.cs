@@ -4,6 +4,7 @@ using System.IO;
 using mainlineDHT.BEncode;
 using mainlineDHT.BEncode.Formatters;
 using mainlineDHT.BEncode.Parser;
+using mainlineDHT.Contract;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace mainlineUnitTests
@@ -31,6 +32,11 @@ namespace mainlineUnitTests
             Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("comment")), "comment missing from dictionary");
             Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("creation date")), "creation date missing from dictionary");
             Assert.IsTrue(dictionary.ContainsKey(new BEncodeByteString("info")), "info missing from dictionary");
+
+            var torrentObj = TorrentMetainfo.FromBEncode(dictionary);
+
+            Debugger.Break();
+            
         }
     }
 }
