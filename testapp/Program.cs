@@ -29,6 +29,7 @@ namespace testapp
         static void ExerciseCapture()
         {
             mainlineCapture.CaptureHandler.EnumerateDevices();
+
         }
 
         static void ExerciseParser()

@@ -15,6 +15,8 @@ using mainlineDHT.BEncode.Formatters;
 
 namespace mainlineCapture
 {
+    using mainlineDHT.Contract;
+
     public static class CaptureHandler
     {
         public static void EnumerateDevices()
@@ -40,12 +42,12 @@ namespace mainlineCapture
                 }
             }
 
-            using (var communicator = allDevices[1].Open(65536, PacketDeviceOpenAttributes.None, 1000)) {
-                Console.WriteLine("Listening on " + allDevices[1].Description + "...");
+            using (var communicator = allDevices[4].Open(65536, PacketDeviceOpenAttributes.None, 1000)) {
+                Console.WriteLine("Listening on " + allDevices[4].Description + "...");
 
                 // start the capture
                 //communicator.CreateFilter("portrange 6881-6889");
-                communicator.SetFilter("udp and portrange 6881-6889");
+                communicator.SetFilter("udp port 8999");
                 communicator.ReceivePackets(0, PacketHandler);
             }
         }
@@ -56,15 +58,26 @@ namespace mainlineCapture
             IpV4Datagram ip = packet.Ethernet.IpV4;
             UdpDatagram udp = ip.Udp;
 
-            if (udp.IsValid) 
+            if (udp.IsValid && udp.DestinationPort == 8999) 
             {
                 byte[] remStr;
 
                 try
                 {
-                    var parsed = FromBytes.ToEntity(udp.Payload.ToArray(), out remStr) as BEncodeDictionary;                    
-                    
-                    Console.WriteLine(parsed.ToJson());
+                    var parsed = FromBytes.ToEntity(udp.Payload.ToArray(), out remStr) as BEncodeDictionary;
+
+                    if (parsed.ContainsKey("q") || parsed.ContainsKey("r"))
+                    {
+                        var obj = DhtMessage.FromBEncode(parsed);
+                        if (obj.MessageType == DhtMessageType.Query)
+                        {
+                            var q = DhtQueryMessage.FromBEncode(parsed);
+                        }
+                        
+                        
+                    }
+
+
                 }
                 catch
                 {

@@ -4,11 +4,9 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections;
-
 namespace mainlineDHT.BEncode
 {
+    using System;
     using System.Collections.Generic;
     using System.Text;
 

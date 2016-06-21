@@ -20,7 +20,7 @@ namespace mainlineDHT.Contract
 
         public static TorrentMetainfo FromBEncode(BEncodeDictionary entity)
         {
-            var announceString =  entity.ValueOrNull("announce").AsString();
+            var announceString = entity.ValueOrNull("announce").AsString();
             
             var metainfo = new TorrentMetainfo();
             metainfo.Comment = entity.ValueOrNull("comment").AsString();
@@ -34,6 +34,7 @@ namespace mainlineDHT.Contract
                 var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
                 metainfo.CreationTime = dtDateTime.AddSeconds(creationTimeLong.Value);
             }
+
             return metainfo;
         }
     }

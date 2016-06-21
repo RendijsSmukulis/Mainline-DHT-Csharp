@@ -47,13 +47,16 @@
     <Compile Include="BEncode\BEncodeInt.cs" />
     <Compile Include="BEncode\BEncodeList.cs" />
     <Compile Include="BEncode\ConversionHelpers\ToClrTypes.cs" />
-    <Compile Include="BEncode\Formatters\ToJObject.cs" />
     <Compile Include="BEncode\Formatters\Json.cs" />
     <Compile Include="BEncode\IBEncodeEntity.cs" />
     <Compile Include="BEncode\BEncodeByteString.cs" />
     <Compile Include="BEncode\Parser\ArrayHelpers.cs" />
     <Compile Include="BEncode\Parser\BsonConvert.cs" />
     <Compile Include="BEncode\Parser\FromBytes.cs" />
+    <Compile Include="Contract\DhtQueryMessage.cs" />
+    <Compile Include="Contract\DhtResponseMessage.cs" />
+    <Compile Include="Contract\DhtMessage.cs" />
+    <Compile Include="Contract\DhtMessageType.cs" />
     <Compile Include="Contract\TorrentInfoDictionary.cs" />
     <Compile Include="Contract\TorrentMetainfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
