@@ -16,6 +16,11 @@
         /// <remarks>"a"</remarks>
         public BEncodeDictionary Arguments { get; set; }
 
+        public override string ToString()
+        {
+            return "qry: " + this.TransactionId + ", " + this.QueryMethod;
+        }
+
         public static DhtQueryMessage FromBEncode(BEncodeDictionary entity)
         {
             var dhtMessage = DhtMessage.FromBEncode(entity);

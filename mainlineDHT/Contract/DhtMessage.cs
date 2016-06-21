@@ -24,12 +24,6 @@ namespace mainlineDHT.Contract
         /// <remarks>"y"</remarks>
         public DhtMessageType MessageType { get; set; }
 
-        /// <summary>
-        /// Gets or sets the response values.
-        /// </summary>
-        /// <remarks>"r"</remarks>
-        public BEncodeDictionary Response { get; set; }
-
         public static DhtMessage FromBEncode(BEncodeDictionary entity)
         {
             var dhtMessage = new DhtMessage();

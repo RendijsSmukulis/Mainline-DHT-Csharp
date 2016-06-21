@@ -71,10 +71,14 @@ namespace mainlineCapture
                         var obj = DhtMessage.FromBEncode(parsed);
                         if (obj.MessageType == DhtMessageType.Query)
                         {
-                            var q = DhtQueryMessage.FromBEncode(parsed);
+                            obj = DhtQueryMessage.FromBEncode(parsed);
+                        }
+                        else if (obj.MessageType == DhtMessageType.Response)
+                        {
+                            obj = DhtResponseMessage.FromBEncode(parsed);
                         }
                         
-                        
+                        Console.WriteLine(obj);
                     }
 
 

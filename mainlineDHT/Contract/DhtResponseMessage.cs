@@ -13,35 +13,30 @@ namespace mainlineDHT.Contract
     public class DhtResponseMessage : DhtMessage
     {
         /// <summary>
-        /// Gets or sets the query method.
-        /// </summary>
-        /// <remarks>"q"</remarks>        
-        public string QueryMethod { get; set; }
-
-        /// <summary>
-        /// Gets or sets the arguments.
-        /// </summary>
-        /// <remarks>"a"</remarks>
-        public BEncodeDictionary Arguments { get; set; }
-
-        /// <summary>
         /// Gets or sets the response values.
         /// </summary>
         /// <remarks>"r"</remarks>
         public BEncodeDictionary Response { get; set; }
 
+        public override string ToString()
+        {
+            return "rsp: " + this.TransactionId;
+        }
 
         public static DhtResponseMessage FromBEncode(BEncodeDictionary entity)
         {
-            var dhtMessage = DhtMessage.FromBEncode(entity) as DhtResponseMessage;
+            var dhtMessage = DhtMessage.FromBEncode(entity);
+            var dhtResponseMessage = new DhtResponseMessage();
+            dhtResponseMessage.TransactionId = dhtMessage.TransactionId;
+            dhtResponseMessage.MessageType = dhtMessage.MessageType;
 
             if (entity.ContainsKey("r"))
             {
                 var response = entity["r"] as BEncodeDictionary;
-                dhtMessage.Response = response;
+                dhtResponseMessage.Response = response;
             }
 
-            return dhtMessage;
+            return dhtResponseMessage;
         }
     }
 }
