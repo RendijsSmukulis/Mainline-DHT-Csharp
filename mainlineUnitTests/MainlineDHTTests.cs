@@ -35,7 +35,7 @@ namespace mainlineUnitTests
 
             var torrentObj = TorrentMetainfo.FromBEncode(dictionary);
 
-            Debugger.Break();
+            
             
         }
     }
